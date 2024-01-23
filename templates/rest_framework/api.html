@@ -1,0 +1,22 @@
+{% extends "rest_framework/base.html" %}
+
+{% block bootstrap_theme %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@3.4.1/flatly/bootstrap.min.css" type="text/css">
+{% endblock %}
+
+{% block title %}
+    Authentication Api
+{% endblock %}
+
+{% block branding %}
+    <h2 style="font-family: sans-serif;">Authentication API</h2>
+{% endblock %}
+{% block content %}
+    <div class="custom-content" style="background-color: black; color: #fff; padding: 20px; margin: 10px; border-radius: 10px;">
+        <h1>Welcome to My Authentication API</h1>
+        <p>This is an Authentication API for users to use.</p>
+    </div>
+    {{ block.super }}
+{% endblock %}
+
+{% block bootstrap_navbar_variant %}{% endblock %}
