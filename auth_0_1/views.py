@@ -2,12 +2,27 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from .serializers import AuthApiModelSerializer
-from .models import AuthApiModel
+from .models import AuthApiModel, APIKey
 import jwt, datetime
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
+
+class GenerateAPIKeyView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        # Generate a new API key for the authenticated user
+        user = AuthApiModel.objects.get(email=request.user)
+        api_key = APIKey.objects.create(user=user)
+        return Response({'api_key': str(api_key.key)})
+
+class MyProtectedView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({'message': 'Hello, authenticated user!'})
 
 class SignUpView(APIView):
     def post(self, request):
@@ -79,7 +94,6 @@ class LogoutView(APIView):
 
         return response
     
-
 class AllUserView(APIView):
 
     def get(self, request):
@@ -87,4 +101,3 @@ class AllUserView(APIView):
         serializer = AuthApiModelSerializer(users, many=True)
         return Response(serializer.data)
         # return JsonResponse({"users": serializer.data})
-

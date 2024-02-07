@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: apidb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: spider002
+    ports:
+      - "5432:5432"
+    networks:
+      - authproject_default  # Use the same network name for Django service
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - authproject_default  # Use the same network name as PostgreSQL
