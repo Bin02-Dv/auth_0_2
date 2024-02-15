@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-!sft+@n-%g%8(du3g^7-!(6hbtq7rn_3p(_l*8apcy$(a78^=@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'finstatapi.onrender.com']
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
